@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recycle"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/recycle_imageview"
+        android:src="@drawable/camera"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="8dp"
+        android:layout_gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/recycle_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text= "PLU"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:textSize="20sp"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal">
+         <TextView
+            android:id="@+id/recycle_sign"
+            android:layout_width="wrap_content"
+            android:textColor="#333333"
+            android:text="￥"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/recycle_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:textColor="#333333"
+            android:text="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/recycle_update"
+        android:layout_marginTop="22dp"
+        android:layout_marginRight="19dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/brush"/>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="#f33213">
+
+     <TextView
+         android:id="@+id/recycle_tv_delete"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="左滑删除"
+         android:textSize="18sp"
+         android:gravity="center"
+         android:textColor="#ffffff"
+         android:background="@android:color/holo_red_light"/>
+ </FrameLayout>
+</LinearLayout>

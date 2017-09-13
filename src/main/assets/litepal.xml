@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="ele" ></dbname>
+
+    <version value="3" ></version>
+
+    <list>
+        <mapping class="com.example.youjingjing.myelectronicbalance.beans.User"></mapping>
+        <mapping class="com.example.youjingjing.myelectronicbalance.beans.Store"></mapping>
+        <mapping class="com.example.youjingjing.myelectronicbalance.beans.PLU"></mapping>
+        <mapping class="com.example.youjingjing.myelectronicbalance.beans.PLURecond"></mapping>
+    </list>
+</litepal>
