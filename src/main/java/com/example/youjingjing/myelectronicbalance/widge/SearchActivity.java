@@ -104,29 +104,28 @@ public class SearchActivity extends AppCompatActivity {
             mListView.setVisibility(View.VISIBLE);
             Cursor plu;
             if(mStore!=null) {
-                int id = mStore.getId();
                 plu = DataSupport.findBySQL("select plu_id as _id from plu_store where store_id = ?",mStore.getId()+"");
+
             if (plu != null && plu.moveToFirst()) {
+                plu_ids.clear();
                 do {
-                    plu_ids.clear();
                     int plu_id = plu.getInt(plu.getColumnIndex("_id"));//_id
                     plu_ids.add(plu_id);
                 } while (plu.moveToNext());
             }
-            }else{
-                Cursor  p;
-             p = DataSupport.findBySQL("select plu_id as _id from plu_store where store_id = 1");
-            }
+                if(plu_ids.size()>0){
 
-            if(plu_ids.size()>0){
+                    bySQL = DataSupport.findBySQL("select name, id as _id from plu where name like '%" + text.toString() + "%'" +
+                            " and _id in (select plu_id as _id from plu_store where store_id = "+mStore.getId()+")");
 
-                bySQL = DataSupport.findBySQL("select name, id as _id from plu" +
-                        " where _id in (select plu_id as _id from plu_store where store_id = 1) and " +
-                        "name like ? ","'%" + text.toString() + "%'");
-
+                }
             }else{
                 bySQL = DataSupport.findBySQL("select name, id as _id from plu where name like '%" + text.toString() + "%'");
+//                Cursor  p;
+//             p = DataSupport.findBySQL("select plu_id as _id from plu_store where store_id = 1");
             }
+
+
             // 2. 创建adapter适配器对象 & 装入模糊搜索的结果
             SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, bySQL, new String[]{"name"},
                     new int[]{android.R.id.text1}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
