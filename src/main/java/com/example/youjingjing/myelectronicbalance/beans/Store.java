@@ -19,6 +19,7 @@ public class Store extends DataSupport implements Parcelable{
     private String time;
     private List<PLU> plus = new ArrayList<>();
     private List<User> users = new ArrayList<>();
+
     public Store() {
     }
 
@@ -27,6 +28,7 @@ public class Store extends DataSupport implements Parcelable{
         name = in.readString();
         time = in.readString();
         plus = in.createTypedArrayList(PLU.CREATOR);
+        users = in.createTypedArrayList(User.CREATOR);
     }
 
     public static final Creator<Store> CREATOR = new Creator<Store>() {
@@ -112,10 +114,12 @@ public class Store extends DataSupport implements Parcelable{
         parcel.writeString(name);
         parcel.writeString(time);
         parcel.writeTypedList(plus);
+        parcel.writeTypedList(users);
     }
 
-    //    @Override
-//    public String toString() {
-//        return "id:"+id+" name:"+name+" plus:"+plus+" time:"+time;
-//    }
+    @Override
+    public String toString() {
+        return "id:"+id+" name:"+name+" plus:"+plus+" time:"+time;
+    }
+    //ge't'plus会报错
 }

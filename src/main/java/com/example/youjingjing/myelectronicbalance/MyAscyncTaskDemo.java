@@ -61,14 +61,49 @@ public class MyAscyncTaskDemo extends AsyncTask<String,Integer,Boolean> {
 
         PLU plu = new PLU();
         PLU plu1 = new PLU();
-        plu.setName("plu1");
+        PLU plu2 = new PLU();
+        PLU plu3 = new PLU();
+        PLU plu4 = new PLU();
+        PLU plu5 = new PLU();
+        PLU plu6 = new PLU();
+        PLU plu7 = new PLU();
+        PLU plu8 = new PLU();
+        PLU plu9 = new PLU();
+        plu.setName("kuu1");
+        plu2.setName("ofu1");
+        plu3.setName("seu1");
+        plu4.setName("deu1");
+        plu5.setName("lpu1");
+        plu6.setName("nflu1");
+        plu7.setName("xslu1");
+        plu8.setName("eflu1");
+        plu9.setName("htlu1");
         plu.setPrice("12");
-        plu1.setName("plu2");
+        plu1.setName("xlu2");
         plu1.setPrice("16");
         List<PLU> plus = new ArrayList<>();
 
+        plu.setPlu_id(store1.getName());
+        plu1.setPlu_id(store1.getName());
+        plu2.setPlu_id(store1.getName());
+        plu3.setPlu_id(store1.getName());
+        plu4.setPlu_id(store1.getName());
+        plu5.setPlu_id(store1.getName());
+        plu6.setPlu_id(store1.getName());
+        plu7.setPlu_id(store1.getName());
+        plu8.setPlu_id(store1.getName());
+        plu9.setPlu_id(store1.getName());
+
         plus.add(plu);
         plus.add(plu1);
+        plus.add(plu2);
+        plus.add(plu3);
+        plus.add(plu4);
+        plus.add(plu5);
+        plus.add(plu6);
+        plus.add(plu7);
+        plus.add(plu8);
+        plus.add(plu9);
 
         store1.setPlus(plus);
         stores1.add(store1);
@@ -237,7 +272,6 @@ public class MyAscyncTaskDemo extends AsyncTask<String,Integer,Boolean> {
 
 //                    Dataset.Builder builder = new Dataset.Builder();
 //                    Dataset dataset = builder.build();
-
                     }else{
                         Log.d("1", "没有数据 " );
                     }

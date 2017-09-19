@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.youjingjing.myelectronicbalance.R;
+import com.example.youjingjing.myelectronicbalance.dialog.MyProgressDialog;
 import com.example.youjingjing.myelectronicbalance.presenter.LoginPresenter;
 import com.example.youjingjing.myelectronicbalance.view.LoginView;
 
@@ -52,13 +53,12 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
 
     private LoginPresenter loginPresenter;
 
-
     String name;
     String psw;
     String port;
     String host;
 
-
+    MyProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +120,10 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     @Override
     public void showLoginSuccess() {
         mLoginTvStatus.setVisibility(View.GONE);
+        if (dialog != null) {
+            dialog.dismiss();
+        }
+
     }
 
     @Override
@@ -128,11 +132,17 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         mLoginTvStatus.setText("登录失败");
         btn_commit.setClickable(true);
         mLoginTvStatus.setVisibility(View.VISIBLE);
+        if (dialog != null) {
+
+            dialog.dismiss();
+        }
+
     }
 
     @Override
     public void showLogging() {
         btn_commit.setClickable(false);
+
 //        mLoginTvStatus.setText("正在登录. . .");
 //        mLoginTvStatus.setVisibility(View.VISIBLE);
     }
@@ -151,7 +161,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
             checkBox_remember.setChecked(true);
             psw = readData("psw");
             etPassword.setText(psw);
-
         } else {
             checkBox_remember.setChecked(false);
             etPassword.setText("");
@@ -255,6 +264,15 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
             writeString("host", host);
             writeString("port", port);
             writeString("psw", psw);
+
+            dialog = new MyProgressDialog();
+            dialog.show(getSupportFragmentManager(),"1");
+            try {
+                Thread.sleep(1000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             presenter.login(LoginActivity.this, etUserName.getText().toString(), etPassword.getText().toString(), Integer.parseInt(mLoginEditPort.getText().toString()),mLoginEditHost.getText().toString());
 
         }

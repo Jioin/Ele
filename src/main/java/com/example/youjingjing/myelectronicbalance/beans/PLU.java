@@ -13,13 +13,15 @@ import java.util.List;
  * Created by youjingjing on 2017/7/27.
  */
 
-public class PLU extends DataSupport implements Parcelable{
+public class PLU extends DataSupport implements Parcelable {
     private int id;
     private String name;
     private String time;
     private String price;
     private String plu_id;
     private String imageUri;
+    //数据库中数据可以为空
+    private String indexTag;
     private List<Store> stores = new ArrayList<>();
     public PLU() {
     }
@@ -32,9 +34,17 @@ public class PLU extends DataSupport implements Parcelable{
         price = in.readString();
         plu_id = in.readString();
         imageUri = in.readString();
+        indexTag = in.readString();
         stores = in.createTypedArrayList(Store.CREATOR);
     }
 
+    public String getIndexTag() {
+        return indexTag;
+    }
+
+    public void setIndexTag(String indexTag) {
+        this.indexTag = indexTag;
+    }
 
     public static final Creator<PLU> CREATOR = new Creator<PLU>() {
         @Override
@@ -64,6 +74,11 @@ public class PLU extends DataSupport implements Parcelable{
     }
 
     public String getPlu_id() {
+        if(getStores().size()<2) {
+            plu_id = ""+id;
+        }else{
+            plu_id = name;
+        }
         return plu_id;
     }
 
@@ -127,11 +142,12 @@ public class PLU extends DataSupport implements Parcelable{
         parcel.writeString(plu_id);
         parcel.writeString(imageUri);
         parcel.writeTypedList(stores);
+        parcel.writeString(indexTag);
     }
 
 
-//    @Override
-//    public String toString() {
-//        return "id:"+id+" name:"+name+" price:"+price+" stores:"+stores+" time:"+time;
-//    }
+    @Override
+    public String toString() {
+        return "id:"+id+" name:"+name+" plu_id:"+plu_id+" price:"+price+" stores:"+getStores()+" time:"+time;
+    }
 }

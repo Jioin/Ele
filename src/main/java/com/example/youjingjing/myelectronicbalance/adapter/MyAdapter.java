@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.youjingjing.myelectronicbalance.R;
 import com.example.youjingjing.myelectronicbalance.beans.PLU;
 import com.example.youjingjing.myelectronicbalance.beans.Store;
@@ -57,16 +58,24 @@ public class MyAdapter extends BaseAdapter<PLU> implements ItemTouchHelperAdapte
         ImageView imageView = holder.getView(R.id.recycle_imageview);
 
 //        Glide.with(context).load(R.drawable.camera).placeholder(R.drawable.yu).error(R.drawable.bg).into(imageView);
-        Glide.with(context).load(plu.getImageUri()).placeholder(R.drawable.bg).error(R.drawable.yu).into(imageView);
+        Glide.with(context).load(plu.getImageUri()).override(60,60)
+                .centerCrop()//剪裁比例
+//                .placeholder(R.drawable.yu)
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)//图片缓存模式
+                .error(R.drawable.yu)
+                .skipMemoryCache(false)
+                .into(imageView);
+
 
        holder.setOnClickListener(R.id.recycle_update, new View.OnClickListener() {
 
            @Override
            public void onClick(View view) {
+
                onSureListener = new OnSureListener() {
                    @Override
                    public void getText(String text) {
-                       Log.e( "getText: ", "11111"+text+"1");
+
 
                            tvContent.setText(text);
 

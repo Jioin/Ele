@@ -19,7 +19,5 @@ public interface LoginView extends BaseView {
 
     void setStatus(boolean boo);//登录状态
 
-
-
 }
 

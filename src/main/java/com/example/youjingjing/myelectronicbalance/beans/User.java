@@ -1,6 +1,8 @@
 package com.example.youjingjing.myelectronicbalance.beans;
 
 import android.database.Cursor;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import org.litepal.crud.DataSupport;
 
@@ -11,13 +13,36 @@ import java.util.List;
  * Created by youjingjing on 2017/7/27.
  */
 
-public class User extends DataSupport{
+public class User extends DataSupport implements Parcelable{
 
     private String name;
     private List<Store> authority = new ArrayList<>();
     private String password;
     private String time;
     private int id;
+
+    public User( ) {
+    }
+
+    protected User(Parcel in) {
+        name = in.readString();
+        authority = in.createTypedArrayList(Store.CREATOR);
+        password = in.readString();
+        time = in.readString();
+        id = in.readInt();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -64,7 +89,6 @@ public class User extends DataSupport{
         this.password = password;
     }
 
-
     public String getTime() {
         return time;
     }
@@ -75,5 +99,19 @@ public class User extends DataSupport{
     @Override
     public String toString() {
         return "id:"+id+" name:"+name+" password:"+password+" authority:"+authority+" time:"+time;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeTypedList(authority);
+        parcel.writeString(password);
+        parcel.writeString(time);
+        parcel.writeInt(id);
     }
 }

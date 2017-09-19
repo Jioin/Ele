@@ -59,13 +59,11 @@
             </RelativeLayout>
 
         </LinearLayout>
-       <fragment
-           android:layout_width="match_parent"
-           android:layout_height="0dp"
-           android:layout_weight="1"
-           android:id="@+id/fragment"
-           android:name="com.example.youjingjing.myelectronicbalance.fragment.ContentFragment"/>
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/content">
+    </RelativeLayout>
 </LinearLayout>
 
 

@@ -87,6 +87,7 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenterIm
                     .hideSoftInputFromWindow(view.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
     public void isFirstUse() {
         if(pref.getBoolean("isFirst",true)){
 //            Toast.makeText(this, "首次使用app", Toast.LENGTH_SHORT).show();

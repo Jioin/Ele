@@ -28,4 +28,20 @@
         <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
     </style>
+
+    <style name="myprogress" parent="Animation.AppCompat.Dialog">
+        //Dialog的windowFrame框
+        <item name="android:windowFrame">@null</item>
+        //activity变成透明窗口
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        //是否悬浮在activity上
+        <item name="android:windowIsFloating">true</item>
+        //文字部分的背景
+        <item name="android:background">@android:color/transparent</item>
+        //对话框周边的黑边
+        <item name="android:windowBackground">@android:color/transparent</item>
+        //对话框背景变暗
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
 </resources>

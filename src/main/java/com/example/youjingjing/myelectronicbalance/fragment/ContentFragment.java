@@ -39,11 +39,11 @@ import com.example.youjingjing.myelectronicbalance.R;
 import com.example.youjingjing.myelectronicbalance.adapter.MyAdapter;
 import com.example.youjingjing.myelectronicbalance.adapter.RecyclerItemClickListener;
 import com.example.youjingjing.myelectronicbalance.beans.PLU;
-import com.example.youjingjing.myelectronicbalance.beans.Store;
 import com.example.youjingjing.myelectronicbalance.popup.CommonPopupWindow;
 import com.example.youjingjing.myelectronicbalance.touchhelper.OnStartDragListener;
 import com.example.youjingjing.myelectronicbalance.touchhelper.SimpleItemTouchHelperCallback;
 import com.example.youjingjing.myelectronicbalance.utils.CommonUtil;
+import com.example.youjingjing.myelectronicbalance.utils.CommonUtilOne;
 import com.gaoneng.library.AutoScrollBackLayout;
 
 import org.litepal.crud.DataSupport;
@@ -74,41 +74,44 @@ public class ContentFragment extends Fragment {
     ProgressBar progressBar;
 
     private Unbinder bind;
+    Context context;
+    List<PLU> plus;
+
+    public ContentFragment(Context context,List<PLU> plus) {
+        this.context = context;
+        this.plus = plus;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_content, container, false);
+        progressBar = view.findViewById(R.id.main_progressbar);
+        autoScrollBackLayout = view.findViewById(R.id.main_scrollback);
+        mRecyclerView = view.findViewById(R.id.activity_main_recycleview);
 
+        if(myAscyncTask==null){
+            if(plus!=null){
+            myAscyncTask = new MyAscyncTask(context);
+            myAscyncTask.execute(plus);
+            }
+        }
         return view;
     }
 
-    public MyAscyncTask getInstance( Context context,Store s){
-        if(myAscyncTask==null){
-           myAscyncTask = new MyAscyncTask(context);
-           myAscyncTask.execute(s);
-        }
-        return myAscyncTask;
-    }
 
-    public class MyAscyncTask extends AsyncTask<Store,Integer,List<PLU>> implements CommonPopupWindow.ViewInterface,OnStartDragListener {
-
-
+    public class MyAscyncTask extends AsyncTask<List<PLU>,Integer,List<PLU>> implements CommonPopupWindow.ViewInterface,OnStartDragListener {
 
         private Context context;
         List<PLU> plu;
         private CommonPopupWindow popupWindow;
         public MyAscyncTask(Context context) {
             this.context = context;
-            View view = LayoutInflater.from(context).inflate(R.layout.fragment_content, null, false);
-            progressBar = view.findViewById(R.id.main_progressbar);
-            autoScrollBackLayout = view.findViewById(R.id.main_scrollback);
-            mRecyclerView = view.findViewById(R.id.activity_main_recycleview);
         }
         ItemTouchHelper mItemTouchHelper;
-
         @Override
-        protected List<PLU> doInBackground(Store... strings) {
-//            for (int i = 0; i < 100; i++) {
+        protected List<PLU> doInBackground(List<PLU>... lists) {
+            //            for (int i = 0; i < 100; i++) {
 //                if(isCancelled()){
 //                    break;
 //                }
@@ -127,8 +130,9 @@ public class ContentFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            plu = strings[0].getPlus();
-            Log.e("doInBackground: ", "" + plu);
+            plu =lists[0];
+            //对数据源进行排序
+            CommonUtil.sortData(plu);
 
             return plu;
         }
@@ -155,7 +159,9 @@ public class ContentFragment extends Fragment {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                 layoutManager.setOrientation(OrientationHelper.VERTICAL);
                 mRecyclerView.setLayoutManager(layoutManager);
-                adapter = new MyAdapter(context,plus,R.layout.recycleview_item,this);
+                if(adapter==null) {
+                    adapter = new MyAdapter(context, plus, R.layout.recycleview_item, this);
+                }
                 mRecyclerView.addItemDecoration(new DividerItemDecoration(context,DividerItemDecoration.VERTICAL));
                 autoScrollBackLayout.bindScrollBack();
                 mRecyclerView.setAdapter(adapter);
@@ -197,7 +203,7 @@ public class ContentFragment extends Fragment {
                         if (popupWindow != null && popupWindow.isShowing()) return;
                         View upView = LayoutInflater.from(context).inflate(R.layout.popup_up, null);
                         //测量View的宽高
-                        CommonUtil.measureWidthAndHeight(upView);
+                        CommonUtilOne.measureWidthAndHeight(upView);
                         popupWindow = new CommonPopupWindow.Builder(context)
                                 .setView(R.layout.popup_up)
                                 .setWidthAndHeight(ViewGroup.LayoutParams.MATCH_PARENT, upView.getMeasuredHeight())
@@ -205,7 +211,7 @@ public class ContentFragment extends Fragment {
                                 .setAnimationStyle(R.style.AnimUp)
                                 .setViewOnclickListener(MyAscyncTask.this)
                                 .create();
-                        popupWindow.showAtLocation(getView().findViewById(android.R.id.content), Gravity.BOTTOM, 0, 0);
+                        popupWindow.showAtLocation(getActivity().findViewById(android.R.id.content), Gravity.BOTTOM, 0, 0);
 
                         mPosition = position;
 
@@ -343,6 +349,7 @@ public class ContentFragment extends Fragment {
                         value.put("imageuri",imageUri.toString());
 
                         DataSupport.update(PLU.class,value,adapter.getData().get(mPosition).getId());
+                        //无法刷新
                         adapter.notifyDataSetChanged();
 //                        picture.setImageBitmap(bitmap);
                     } catch (Exception e) {
@@ -431,6 +438,6 @@ public class ContentFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        bind.unbind();
+//        bind.unbind();
     }
 }

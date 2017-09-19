@@ -41,14 +41,15 @@ public class LoginPresenter extends BasePresenterIml<LoginView>{
                 getView().showNetWorkError();
                 return;
             }
+
             getView().showLogging(); //显示正在登录中
-
-
             //登录 ，需要处理数据，所有要在model中执行
             loginModelIml.login(context, username, password,host,port,new LoginModel.OnLoginResultListener() {//访问Model
+
                 @Override
                 public void onSuccess(ArrayList<Store> stores) {
                     if (isViewAttached()) {
+
                         getView().showLoginSuccess(); //显示登录成功
                         //传递数据
                         Bundle bundle = new Bundle();
@@ -72,15 +73,10 @@ public class LoginPresenter extends BasePresenterIml<LoginView>{
                     if (isViewAttached()) {
                         getView().showLoginFailure(msg);//显示登录失败
 //                            getView().jumpActivity();
-
                     }
                 }
-
             });
         }
-
     }
-
-
 }
 

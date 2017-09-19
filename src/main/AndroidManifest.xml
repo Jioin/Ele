@@ -27,10 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".widge.MainActivity" />
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
+        <activity android:name=".widge.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".widge.SearchActivity"></activity>
 
         <provider
@@ -43,7 +41,8 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".widge.ResultActivity"></activity>
+        <activity android:name=".widge.ResultActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.example.youjingjing.myelectronicbalance.widge;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -12,6 +13,7 @@ import com.example.youjingjing.myelectronicbalance.R;
 import com.example.youjingjing.myelectronicbalance.Spinner.SpinerPopWindow;
 import com.example.youjingjing.myelectronicbalance.adapter.AbstractSpinerAdapter;
 import com.example.youjingjing.myelectronicbalance.adapter.CustemSpinerAdapter;
+import com.example.youjingjing.myelectronicbalance.beans.PLU;
 import com.example.youjingjing.myelectronicbalance.beans.Store;
 import com.example.youjingjing.myelectronicbalance.fragment.ContentFragment;
 import com.example.youjingjing.myelectronicbalance.presenter.MainPresenter;
@@ -27,7 +29,6 @@ import butterknife.OnClick;
 public class MainActivity extends BaseActivity<MainView,MainPresenter> implements MainView {
 
     TextView textView_user;
-    ContentFragment.MyAscyncTask myAscyncTask = null;
 
     List<String> datas;
 
@@ -41,6 +42,7 @@ public class MainActivity extends BaseActivity<MainView,MainPresenter> implement
     @BindView(R.id.spinner_image)
     ImageView imageView_spinner;
 
+    Store store;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,14 +77,15 @@ public class MainActivity extends BaseActivity<MainView,MainPresenter> implement
 
     }
 
-    @OnClick(R.id.main_fab)
-    public void onClick() {
-
-    }
-
     @OnClick(R.id.main_search)
     public void Search() {
-        jumpActivity(SearchActivity.class);
+        Intent intent = new Intent(this,SearchActivity.class);
+        if(mStores!=null) {
+            if(store!=null){
+                intent.putExtra("store", store);
+            }
+        }
+        startActivity(intent);
     }
 
 
@@ -100,9 +103,15 @@ public class MainActivity extends BaseActivity<MainView,MainPresenter> implement
             @Override
             public void onItemClick(int pos) {
                 setHero(pos);
-                if (myAscyncTask == null) {
-                 new ContentFragment().getInstance(MainActivity.this,mStores.get(pos));
-                }
+//                if (myAscyncTask == null) {
+                store = mStores.get(pos);
+                List<PLU> plus = store.getPlus();
+
+                FragmentTransaction replace = getSupportFragmentManager().beginTransaction().replace(R.id.content, new ContentFragment(MainActivity.this, plus));
+                replace.commit();
+//                    myAscyncTask = new MyAscyncTask(MainActivity.this);
+//                    myAscyncTask.execute(mStores.get(pos));
+//                }
 //                Toast.makeText(MainActivity.this,"自定义点击了:"+mStores.get(pos),Toast.LENGTH_SHORT).show();
             }
         });
@@ -112,7 +121,6 @@ public class MainActivity extends BaseActivity<MainView,MainPresenter> implement
                 setTextImage(R.drawable.unfold);
             }
         });
-
     }
 
     private void setHero(int pos) {
@@ -146,7 +154,6 @@ public class MainActivity extends BaseActivity<MainView,MainPresenter> implement
         mSpinerPopWindow.setWidth(mRootView.getWidth());
         mSpinerPopWindow.showAsDropDown(mRootView);
         setTextImage(R.drawable.packup);
-
     }
 
     @Override
@@ -178,5 +185,4 @@ public class MainActivity extends BaseActivity<MainView,MainPresenter> implement
             finish();
         }
     }
-
 }

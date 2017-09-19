@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.PopupWindow;
 
-import com.example.youjingjing.myelectronicbalance.utils.CommonUtil;
+import com.example.youjingjing.myelectronicbalance.utils.CommonUtilOne;
 
 
 /**
@@ -129,7 +129,7 @@ public class CommonPopupWindow extends PopupWindow {
             if (listener != null && params.layoutResId != 0) {
                 listener.getChildView(popupWindow.controller.mPopupView, params.layoutResId);
             }
-            CommonUtil.measureWidthAndHeight(popupWindow.controller.mPopupView);
+            CommonUtilOne.measureWidthAndHeight(popupWindow.controller.mPopupView);
             return popupWindow;
         }
     }

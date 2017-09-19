@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-
         />
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/rootLayout"
@@ -32,16 +31,7 @@
             </android.support.v7.widget.RecyclerView>
         </com.gaoneng.library.AutoScrollBackLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/main_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="@dimen/codelab_fab_margin_bottom"
-            android:layout_marginRight="@dimen/codelab_fab_margin_right"
-            android:src="@drawable/brush"
-            app:backgroundTint="@null"
-            app:fabSize="normal" />
+
     </android.support.design.widget.CoordinatorLayout>
 
 </RelativeLayout>

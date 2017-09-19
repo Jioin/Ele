@@ -5,27 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <ImageView
-        android:layout_width="80dp"
         android:layout_height="80dp"
+        android:padding="12dp"
+        >
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/recycle_imageview"
         android:src="@drawable/camera"/>
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@id/recycle_imageview"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:gravity="center_vertical"
         android:layout_marginLeft="8dp"
-        android:layout_gravity="center_vertical">
+        >
 
     <TextView
         android:id="@+id/recycle_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:text= "PLU"
         android:foreground="?android:attr/selectableItemBackground"
         android:textSize="20sp"/>
@@ -53,12 +55,12 @@
 
     <ImageView
         android:id="@+id/recycle_update"
-        android:layout_marginTop="22dp"
+        android:layout_alignParentRight="true"
         android:layout_marginRight="19dp"
         android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_height="match_parent"
         android:src="@drawable/brush"/>
-    </LinearLayout>
+    </RelativeLayout>
     <FrameLayout
         android:layout_width="100dp"
         android:layout_height="match_parent"
