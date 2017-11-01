@@ -70,8 +70,6 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initView();
         showHistory();
-
-
     }
 
     private void initView() {
@@ -82,7 +80,7 @@ public class SearchActivity extends AppCompatActivity {
         if (extras != null) {
             mStore = intent.getParcelableExtra("store");
         }
-            plu_ids = new ArrayList<>();
+        plu_ids = new ArrayList<>();
         et_search = (EditText) findViewById(R.id.activity_search_et);
         et_search.setFocusable(true);
         //打开软键盘

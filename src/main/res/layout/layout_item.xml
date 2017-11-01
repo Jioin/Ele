@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.youjingjing.myelectronicbalance.widge.SlidingButtonView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="项目中我是任意复杂的原ContentItem布局"/>
+
+    <!-- 以下都是侧滑菜单的内容依序排列 -->
+    <Button
+        android:id="@+id/btnTop"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:background="#d9dee4"
+        android:text="置顶"
+        android:textColor="@android:color/white"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/text"
+        android:layout_toEndOf="@+id/text" />
+
+
+    <Button
+        android:id="@+id/tv_delete"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:background="#dc2312"
+        android:text="删除"
+        android:layout_toRightOf="@id/btnTop"
+        android:textColor="@android:color/white"/>
+
+    </RelativeLayout>
+</com.example.youjingjing.myelectronicbalance.widge.SlidingButtonView>
+

@@ -7,9 +7,9 @@
     android:orientation="vertical"
     >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="167dp"
             android:paddingTop="18dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
@@ -20,12 +20,13 @@
             <RelativeLayout
                 android:id="@+id/rootView"
                 android:gravity="center_vertical"
+                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp">
 
                 <TextView
                     android:id="@+id/tv_value"
-                    android:paddingLeft="13dp"
+                    android:paddingLeft="10dp"
                     android:layout_width="wrap_content"
                     android:gravity="center_vertical"
                     android:layout_height="wrap_content"
@@ -42,11 +43,12 @@
 
             </RelativeLayout>
             <RelativeLayout
+                android:layout_below="@id/rootView"
                 android:id="@+id/main_search"
                 android:gravity="center"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="13dp"
                 android:layout_width="match_parent"
-                android:background="@color/white"
+                android:background="@drawable/dialog_back"
                 android:layout_height="40dp">
 
                 <TextView
@@ -58,7 +60,7 @@
 
             </RelativeLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

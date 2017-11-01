@@ -15,13 +15,10 @@ import com.example.youjingjing.myelectronicbalance.beans.PLU;
 import com.example.youjingjing.myelectronicbalance.beans.Store;
 import com.example.youjingjing.myelectronicbalance.dialog.CustomDialog;
 import com.example.youjingjing.myelectronicbalance.dialog.OnSureListener;
-import com.example.youjingjing.myelectronicbalance.touchhelper.ItemTouchHelperAdapter;
-import com.example.youjingjing.myelectronicbalance.touchhelper.OnStartDragListener;
 
 import org.litepal.crud.DataSupport;
 
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -29,18 +26,16 @@ import java.util.List;
  * Created by youjingjing on 2017/7/24.
  */
 
-public class MyAdapter extends BaseAdapter<PLU> implements ItemTouchHelperAdapter{
+public class MyAdapter extends BaseAdapter<PLU> {
     CustomDialog mDialog;
     OnSureListener onSureListener;
-    private OnStartDragListener mDragStartListener;
-
+    private IonSlidingViewClickListener mIDeleteBtnClickListener;
     private RecyclerItemClickListener.OnItemClickListener mListener;
 
-    public MyAdapter(Context context, List<PLU> data, int layoutId,OnStartDragListener dragStartListener) {
+    public MyAdapter(Context context, List<PLU> data, int layoutId,IonSlidingViewClickListener ionSlidingViewClickListener) {
         super(context, data, layoutId);
-        this.mDragStartListener = dragStartListener;
+        mIDeleteBtnClickListener = ionSlidingViewClickListener;
     }
-
 
     public void setListener(RecyclerItemClickListener.OnItemClickListener listener) {
         mListener = listener;
@@ -52,7 +47,6 @@ public class MyAdapter extends BaseAdapter<PLU> implements ItemTouchHelperAdapte
         TextView tvName = holder.getView(R.id.recycle_title);
         final TextView tvContent = holder.getView(R.id.recycle_content);
 
-        TextView delete = holder.getView(R.id.recycle_tv_delete);
         tvContent.setText(plu.getPrice());
         tvName.setText(plu.getName());
         ImageView imageView = holder.getView(R.id.recycle_imageview);
@@ -75,7 +69,6 @@ public class MyAdapter extends BaseAdapter<PLU> implements ItemTouchHelperAdapte
                onSureListener = new OnSureListener() {
                    @Override
                    public void getText(String text) {
-
 
                            tvContent.setText(text);
 
@@ -116,6 +109,19 @@ public class MyAdapter extends BaseAdapter<PLU> implements ItemTouchHelperAdapte
         });
 
 
+        holder.setOnClickListener(R.id.btnDelete, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mIDeleteBtnClickListener.onDeleteBtnCilck(view);
+            }
+        });
+      holder.setOnClickListener(R.id.btnTop, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
     public void addData(int position){
         PLU plu  = new PLU();
@@ -131,24 +137,8 @@ public class MyAdapter extends BaseAdapter<PLU> implements ItemTouchHelperAdapte
         notifyItemRemoved(position);
     }
 
-    @Override
-    public boolean onItemMove(int fromPosition, int toPosition) {
-        Collections.swap(data,fromPosition,toPosition);
-        notifyItemMoved(fromPosition,toPosition);
-        return true;
-    }
 
-    @Override
-    public void onItemDismiss(int position) {
-        data.remove(position);
-//      DataSupport.delete(PLU.class,data.get(position).getId());
-        Log.e("onItemDismiss: ", position+"=");
-        notifyDataSetChanged();
-//        notifyItemChanged(position);
-    }
-
-
-//    @Override
+    //    @Override
 //    public void onBind(BaseHolder holder, final Contact contact, int position) {
 //        //根据控件Id获取Item内部的控件
 //        TextView tvName = holder.getView(R.id.tvName);
@@ -161,5 +151,8 @@ public class MyAdapter extends BaseAdapter<PLU> implements ItemTouchHelperAdapte
 //              }
 //        });
 //    }
-
+public interface IonSlidingViewClickListener {
+    void onItemClick(View view);
+    void onDeleteBtnCilck(View view);
+}
 }

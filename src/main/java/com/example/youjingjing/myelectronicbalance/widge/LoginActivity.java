@@ -108,8 +108,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         //显示是否记住自动登录
 //        autoLogin();
 
-
-
     }
 
     @Override
@@ -123,7 +121,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         if (dialog != null) {
             dialog.dismiss();
         }
-
     }
 
     @Override
@@ -133,7 +130,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         btn_commit.setClickable(true);
         mLoginTvStatus.setVisibility(View.VISIBLE);
         if (dialog != null) {
-
             dialog.dismiss();
         }
 
@@ -300,6 +296,4 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
                 break;
         }
     }
-
-
 }

@@ -43,6 +43,9 @@
 
         <activity android:name=".widge.ResultActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <activity android:name=".widge.TestActivity">
+
+        </activity>
     </application>
 
 </manifest>

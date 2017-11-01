@@ -20,12 +20,12 @@ public class PLU extends DataSupport implements Parcelable {
     private String price;
     private String plu_id;
     private String imageUri;
+    private boolean isSticky;
     //数据库中数据可以为空
     private String indexTag;
     private List<Store> stores = new ArrayList<>();
     public PLU() {
     }
-
 
     protected PLU(Parcel in) {
         id = in.readInt();
@@ -40,6 +40,14 @@ public class PLU extends DataSupport implements Parcelable {
 
     public String getIndexTag() {
         return indexTag;
+    }
+
+    public boolean isSticky() {
+        return isSticky;
+    }
+
+    public void setSticky(boolean sticky) {
+        isSticky = sticky;
     }
 
     public void setIndexTag(String indexTag) {

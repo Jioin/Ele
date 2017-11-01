@@ -39,7 +39,6 @@ public class ResultActivity extends AppCompatActivity {
         replace.commit();
 //        if (myAscyncTask == null) {
 //            myAscyncTask = new MainActivity.MyAscyncTask(ResultActivity.this);
-//
 //            plus.get(0).getStores().get(0));
 //        }
     }

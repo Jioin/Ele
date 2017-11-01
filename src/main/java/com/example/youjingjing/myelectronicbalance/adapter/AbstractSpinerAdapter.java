@@ -25,8 +25,6 @@ public abstract class AbstractSpinerAdapter <T> extends android.widget.BaseAdapt
     private List<T> mObjects = new ArrayList<T>();
     private int mSelectItem = 0;
 
-
-
     public AbstractSpinerAdapter(Context context) {
         mContext = context;
     }

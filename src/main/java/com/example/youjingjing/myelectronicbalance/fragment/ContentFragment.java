@@ -40,8 +40,6 @@ import com.example.youjingjing.myelectronicbalance.adapter.MyAdapter;
 import com.example.youjingjing.myelectronicbalance.adapter.RecyclerItemClickListener;
 import com.example.youjingjing.myelectronicbalance.beans.PLU;
 import com.example.youjingjing.myelectronicbalance.popup.CommonPopupWindow;
-import com.example.youjingjing.myelectronicbalance.touchhelper.OnStartDragListener;
-import com.example.youjingjing.myelectronicbalance.touchhelper.SimpleItemTouchHelperCallback;
 import com.example.youjingjing.myelectronicbalance.utils.CommonUtil;
 import com.example.youjingjing.myelectronicbalance.utils.CommonUtilOne;
 import com.gaoneng.library.AutoScrollBackLayout;
@@ -100,7 +98,7 @@ public class ContentFragment extends Fragment {
     }
 
 
-    public class MyAscyncTask extends AsyncTask<List<PLU>,Integer,List<PLU>> implements CommonPopupWindow.ViewInterface,OnStartDragListener {
+    public class MyAscyncTask extends AsyncTask<List<PLU>,Integer,List<PLU>> implements CommonPopupWindow.ViewInterface,MyAdapter.IonSlidingViewClickListener {
 
         private Context context;
         List<PLU> plu;
@@ -151,7 +149,7 @@ public class ContentFragment extends Fragment {
         @Override
         protected void onPostExecute(List<PLU> plus) {
             super.onPostExecute(plus);
-            myAscyncTask = null;
+//            myAscyncTask = null;
             showProgress(false);
             if (plus!=null) {
 //            finish();
@@ -165,11 +163,6 @@ public class ContentFragment extends Fragment {
                 mRecyclerView.addItemDecoration(new DividerItemDecoration(context,DividerItemDecoration.VERTICAL));
                 autoScrollBackLayout.bindScrollBack();
                 mRecyclerView.setAdapter(adapter);
-
-
-                ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
-                mItemTouchHelper  = new ItemTouchHelper(callback);
-                mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
 //                mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
 //                             @Override
@@ -221,20 +214,8 @@ public class ContentFragment extends Fragment {
 //            mPasswordView.setError(getString(R.string.error_incorrect_password));
 //            mPasswordView.requestFocus();
 //            Toast.makeText(this, "下载失败", Toast.LENGTH_SHORT).show();
-            }
+            }}
 
-        }
-        @Override
-        public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
-            mItemTouchHelper.startDrag(viewHolder);
-        }
-
-        @Override
-        protected void onCancelled() {
-            super.onCancelled();
-            myAscyncTask = null;
-//            showProgress(false);
-        }
 
         private void showProgress(boolean b) {
             if (b==true){
@@ -314,6 +295,16 @@ public class ContentFragment extends Fragment {
                     break;
             }
         }
+
+        @Override
+        public void onItemClick(View view) {
+            Toast.makeText(context, "单击" , Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onDeleteBtnCilck(View view) {
+            Toast.makeText(context, "删除" , Toast.LENGTH_SHORT).show();
+        }
     }
     private void openAlbum() {
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
@@ -335,7 +326,6 @@ public class ContentFragment extends Fragment {
         }
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -350,7 +340,8 @@ public class ContentFragment extends Fragment {
 
                         DataSupport.update(PLU.class,value,adapter.getData().get(mPosition).getId());
                         //无法刷新
-                        adapter.notifyDataSetChanged();
+//                        adapter.notifyDataSetChanged();
+                        myAscyncTask.onPostExecute(plus);
 //                        picture.setImageBitmap(bitmap);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -372,7 +363,10 @@ public class ContentFragment extends Fragment {
                         value.put("imageuri",handleImageOnKitKat(data));
                     }
                     DataSupport.update(PLU.class,value,adapter.getData().get(mPosition).getId());
-                    adapter.notifyDataSetChanged();
+
+//                    adapter.notifyDataSetChanged();
+                    myAscyncTask.onPostExecute(plus);
+
                 }
                 break;
             default:

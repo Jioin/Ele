@@ -1,6 +1,7 @@
 package com.example.youjingjing.myelectronicbalance.Spinner;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +50,8 @@ public class SpinerPopWindow<T> extends PopupWindow implements AdapterView.OnIte
         setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
 
         setFocusable(true);
-//        ColorDrawable dw = new ColorDrawable(0x00);
-//        setBackgroundDrawable(dw);
+        ColorDrawable dw = new ColorDrawable(0x00);
+        setBackgroundDrawable(dw);
 
         mListView = (ListView) view.findViewById(R.id.listview);
         mListView.setOnItemClickListener(this);

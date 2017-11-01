@@ -1,14 +1,11 @@
 package com.example.youjingjing.myelectronicbalance.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.example.youjingjing.myelectronicbalance.touchhelper.ItemTouchHelperViewHolder;
 
 import java.util.List;
 
@@ -61,45 +58,36 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Ba
     public abstract void onBind(BaseHolder holder, T t, int position);
 
 
-    public static class BaseHolder extends RecyclerView.ViewHolder  implements ItemTouchHelperViewHolder {
+    public static class BaseHolder extends RecyclerView.ViewHolder {
         public View itemView;
         SparseArray<View> views;//存放Item中的控件
-        public BaseHolder(View itemView){
+
+        public BaseHolder(View itemView) {
             super(itemView);
             this.itemView = itemView;
             views = new SparseArray<View>();
         }
+
         //供adapter调用，返回holder
-        public static <T extends BaseHolder> T getHolder(Context cxt, ViewGroup parent, int layoutId){
+        public static <T extends BaseHolder> T getHolder(Context cxt, ViewGroup parent, int layoutId) {
             return (T) new BaseHolder(LayoutInflater.from(cxt).inflate(layoutId, parent, false));
         }
+
         //根据Item中的控件Id获取控件
-        public <T extends View> T getView(int viewId){
+        public <T extends View> T getView(int viewId) {
             View childreView = views.get(viewId);
-            if (childreView == null){
+            if (childreView == null) {
                 childreView = itemView.findViewById(viewId);
                 views.put(viewId, childreView);
             }
             return (T) childreView;
         }
+
         //根据Item中的控件Id向控件添加事件监听
-        public BaseHolder setOnClickListener(int viewId, View.OnClickListener listener){
+        public BaseHolder setOnClickListener(int viewId, View.OnClickListener listener) {
             View view = getView(viewId);
             view.setOnClickListener(listener);
             return this;
-        }
-
-
-        //选中状态
-        @Override
-        public void onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY);
-        }
-
-        //非选中状态
-        @Override
-        public void onItemClear() {
-            itemView.setBackgroundColor(0);
         }
     }
 }

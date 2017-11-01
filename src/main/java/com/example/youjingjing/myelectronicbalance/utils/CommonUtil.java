@@ -37,6 +37,9 @@ public class CommonUtil {
         for (int i = 0; i < list.size(); i++) {
             PLU bean = list.get(i);
             String tag = Pinyin.toPinyin(bean.getName().substring(0, 1).charAt(0)).substring(0, 1);
+            if(bean.isSticky()){
+                bean.setIndexTag("aaaaaa");
+            }
             if (tag.matches("[a-z]")) {
                 bean.setIndexTag(tag);
                 values.put("indextag",tag);
@@ -58,6 +61,7 @@ public class CommonUtil {
                 }
             }
         });
+
     }
 
     /**
